@@ -1,0 +1,99 @@
+---
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { siteConfig } from "../../config";
+import { getBlogDisplayDate, getBlogPosts, type BlogPost } from "../../lib/blog";
+import "../../styles/global.css";
+
+export const getStaticPaths = () =>
+  getBlogPosts().map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+
+type Props = {
+  post: BlogPost;
+};
+
+const { post } = Astro.props;
+const { Content } = post;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={post.frontmatter.description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{post.frontmatter.title} - {siteConfig.name}</title>
+  </head>
+  <body>
+    <Header />
+    <main class="px-8 py-24 sm:px-12 md:px-16 lg:px-24">
+      <article class="mx-auto max-w-4xl">
+        <a
+          href="/#blog"
+          class="inline-flex items-center text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+        >
+          <span aria-hidden="true" class="mr-2">←</span>
+          Back to blog
+        </a>
+
+        <header class="mt-10 border-b border-gray-200 pb-10">
+          <time
+            class="text-sm text-gray-500"
+            datetime={post.frontmatter.publishDate}
+          >
+            {getBlogDisplayDate(post.frontmatter)}
+          </time>
+          {
+            post.frontmatter.category && (
+              <span class="ml-3 text-sm text-gray-500">
+                {post.frontmatter.category}
+              </span>
+            )
+          }
+          {
+            post.frontmatter.readTime && (
+              <span class="ml-3 text-sm text-gray-500">
+                {post.frontmatter.readTime}
+              </span>
+            )
+          }
+          <h1
+            class="mt-4 text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-gray-900"
+          >
+            {post.frontmatter.title}
+          </h1>
+          <p class="mt-5 text-lg sm:text-xl leading-relaxed text-gray-600">
+            {post.frontmatter.description}
+          </p>
+
+          {
+            post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
+              <div class="mt-6 flex flex-wrap gap-2">
+                {post.frontmatter.tags.map((tag) => (
+                  <span class="px-3 py-1.5 bg-gray-900 text-white rounded-lg text-sm font-medium">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )
+          }
+        </header>
+
+        <div class="blog-content mt-10">
+          <Content />
+        </div>
+      </article>
+    </main>
+    <Footer />
+  </body>
+</html>

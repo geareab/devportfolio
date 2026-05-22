@@ -40,6 +40,23 @@ The template is designed to be easily customizable through the `src/config.ts` f
 
 If skills, projects, experience, or education are removed from the config, those sections will be hidden entirely.
 
+### Blog Posts
+
+Blog posts live in `src/content/blog` as Markdown files. To publish a new post, add a new `.md` file with frontmatter like this:
+
+```markdown
+---
+title: "Post Title"
+description: "Short summary shown on the homepage."
+publishDate: "2026-05-22"
+tags: ["Strategy", "Technology"]
+---
+
+Write the post body here using Markdown.
+```
+
+Set `draft: true` in the frontmatter if you want to keep a post out of the site while working on it.
+
 ### Example structures
 
 Here's what the config data structure looks like for each section:
@@ -135,7 +152,12 @@ devportfolio/
 │   │   ├── Header.astro     # Navigation header
 │   │   ├── Hero.astro       # Hero/intro section
 │   │   └── Projects.astro   # Projects showcase
+│   ├── content/
+│   │   └── blog/            # Markdown blog posts
+│   ├── lib/
+│   │   └── blog.ts          # Blog post loading helpers
 │   ├── pages/
+│   │   ├── blog/[slug].astro# Individual blog post pages
 │   │   └── index.astro      # Main page layout
 │   ├── styles/
 │   │   └── global.css       # Global styles

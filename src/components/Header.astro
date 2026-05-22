@@ -1,7 +1,9 @@
 ---
 import { siteConfig } from "../config";
+import { getBlogPosts } from "../lib/blog";
 
 const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
+const hasBlog = getBlogPosts().length > 0;
 const hasExperience = siteConfig.experience && siteConfig.experience.length > 0;
 const hasEducation = siteConfig.education && siteConfig.education.length > 0;
 ---
@@ -28,6 +30,18 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
               class="text-gray-700 hover:text-black transition-colors font-medium"
             >
               Projects
+            </a>
+          </li>
+        )
+      }
+      {
+        hasBlog && (
+          <li>
+            <a
+              href="/#blog"
+              class="text-gray-700 hover:text-black transition-colors font-medium"
+            >
+              Blog
             </a>
           </li>
         )
