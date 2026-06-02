@@ -92,6 +92,203 @@ const { Content } = post;
         <div class="blog-content mt-10">
           <Content />
         </div>
+        {
+          post.slug === "chess-algorithms-why-ai-is-much-more-than-llms" && (
+            <script is:inline>
+              {`
+const mount = document.getElementById("chess-code-toggle");
+
+const codeExamples = {
+  c: \`#include <stdio.h>
+
+#define MAX 100000
+#define MIN -100000
+
+int max(int a, int b) {
+    return (a > b) ? a : b;
+}
+
+int min(int a, int b) {
+    return (a < b) ? a : b;
+}
+
+int minimax(int depth, int nodeIndex, int isMax, int scores[], int alpha, int beta) {
+    if (depth == 0) {
+        return scores[nodeIndex];
+    }
+
+    if (isMax) {
+        int best = MIN;
+
+        for (int i = 0; i < 2; i++) {
+            int value = minimax(depth - 1, nodeIndex * 2 + i, 0, scores, alpha, beta);
+            best = max(best, value);
+            alpha = max(alpha, best);
+
+            if (beta <= alpha) {
+                break;
+            }
+        }
+
+        return best;
+    } else {
+        int best = MAX;
+
+        for (int i = 0; i < 2; i++) {
+            int value = minimax(depth - 1, nodeIndex * 2 + i, 1, scores, alpha, beta);
+            best = min(best, value);
+            beta = min(beta, best);
+
+            if (beta <= alpha) {
+                break;
+            }
+        }
+
+        return best;
+    }
+}
+
+int main() {
+    int scores[] = {3, 5, 6, 9, 1, 2, 0, -1};
+    int depth = 3;
+    int bestScore = minimax(depth, 0, 1, scores, MIN, MAX);
+
+    printf("The best score is: %d\\\\n", bestScore);
+    return 0;
+}\`,
+  go: \`package main
+
+const maxScore = 100000
+const minScore = -100000
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
+
+func minimax(depth, nodeIndex int, isMax bool, scores []int, alpha, beta int) int {
+	if depth == 0 {
+		return scores[nodeIndex]
+	}
+
+	if isMax {
+		best := minScore
+
+		for i := 0; i < 2; i++ {
+			value := minimax(depth-1, nodeIndex*2+i, false, scores, alpha, beta)
+			best = max(best, value)
+			alpha = max(alpha, best)
+
+			if beta <= alpha {
+				break
+			}
+		}
+
+		return best
+	}
+
+	best := maxScore
+
+	for i := 0; i < 2; i++ {
+		value := minimax(depth-1, nodeIndex*2+i, true, scores, alpha, beta)
+		best = min(best, value)
+		beta = min(beta, best)
+
+		if beta <= alpha {
+			break
+		}
+	}
+
+	return best
+}
+
+func main() {
+	scores := []int{3, 5, 6, 9, 1, 2, 0, -1}
+	depth := 3
+	bestScore := minimax(depth, 0, true, scores, minScore, maxScore)
+
+	println("The best score is:", bestScore)
+}\`,
+  python: \`MAX_SCORE = 100000
+MIN_SCORE = -100000
+
+
+def minimax(depth, node_index, is_max, scores, alpha, beta):
+    if depth == 0:
+        return scores[node_index]
+
+    if is_max:
+        best = MIN_SCORE
+
+        for i in range(2):
+            value = minimax(depth - 1, node_index * 2 + i, False, scores, alpha, beta)
+            best = max(best, value)
+            alpha = max(alpha, best)
+
+            if beta <= alpha:
+                break
+
+        return best
+
+    best = MAX_SCORE
+
+    for i in range(2):
+        value = minimax(depth - 1, node_index * 2 + i, True, scores, alpha, beta)
+        best = min(best, value)
+        beta = min(beta, best)
+
+        if beta <= alpha:
+            break
+
+    return best
+
+
+scores = [3, 5, 6, 9, 1, 2, 0, -1]
+depth = 3
+best_score = minimax(depth, 0, True, scores, MIN_SCORE, MAX_SCORE)
+
+print(f"The best score is: {best_score}")\`
+};
+
+if (mount) {
+  const wrapper = document.createElement("div");
+  wrapper.className = "code-toggle";
+  wrapper.innerHTML = \`
+    <input type="radio" name="chess-code" id="chess-c" checked>
+    <input type="radio" name="chess-code" id="chess-go">
+    <input type="radio" name="chess-code" id="chess-python">
+    <div class="code-toggle-tabs" role="tablist" aria-label="Code language">
+      <label for="chess-c" role="tab">C</label>
+      <label for="chess-go" role="tab">Go</label>
+      <label for="chess-python" role="tab">Python</label>
+    </div>
+    <div class="code-toggle-panels">
+      <div class="code-toggle-panel" data-code="c"><pre><code class="language-c"></code></pre></div>
+      <div class="code-toggle-panel" data-code="go"><pre><code class="language-go"></code></pre></div>
+      <div class="code-toggle-panel" data-code="python"><pre><code class="language-python"></code></pre></div>
+    </div>
+  \`;
+
+  Object.entries(codeExamples).forEach(([language, code]) => {
+    const block = wrapper.querySelector(\`[data-code="\${language}"] code\`);
+    if (block) block.textContent = code;
+  });
+
+  mount.replaceWith(wrapper);
+}
+`}
+            </script>
+          )
+        }
       </article>
     </main>
     <Footer />

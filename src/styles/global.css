@@ -76,3 +76,64 @@ body {
   color: inherit;
   padding: 0;
 }
+
+.blog-content .code-toggle {
+  border: 1px solid rgb(229 231 235);
+  border-radius: 0.75rem;
+  background: rgb(249 250 251);
+  overflow: hidden;
+}
+
+.blog-content .code-toggle input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.blog-content .code-toggle-tabs {
+  display: flex;
+  gap: 0.35rem;
+  padding: 0.6rem;
+  background: white;
+  border-bottom: 1px solid rgb(229 231 235);
+}
+
+.blog-content .code-toggle label {
+  border: 1px solid rgb(229 231 235);
+  border-radius: 0.5rem;
+  color: rgb(75 85 99);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0.55rem 0.8rem;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+.blog-content .code-toggle label:hover {
+  border-color: rgb(156 163 175);
+  color: rgb(17 24 39);
+}
+
+.blog-content .code-toggle-panel {
+  display: none;
+}
+
+.blog-content .code-toggle-panel pre {
+  border-radius: 0;
+  margin: 0;
+}
+
+.blog-content .code-toggle #chess-c:checked ~ .code-toggle-tabs label[for="chess-c"],
+.blog-content .code-toggle #chess-go:checked ~ .code-toggle-tabs label[for="chess-go"],
+.blog-content .code-toggle #chess-python:checked ~ .code-toggle-tabs label[for="chess-python"] {
+  background: rgb(17 24 39);
+  border-color: rgb(17 24 39);
+  color: white;
+}
+
+.blog-content .code-toggle #chess-c:checked ~ .code-toggle-panels [data-code="c"],
+.blog-content .code-toggle #chess-go:checked ~ .code-toggle-panels [data-code="go"],
+.blog-content .code-toggle #chess-python:checked ~ .code-toggle-panels [data-code="python"] {
+  display: block;
+}
