@@ -1,0 +1,43 @@
+---
+import { siteConfig } from "../config";
+
+const hasActivities =
+  siteConfig.extracurriculars && siteConfig.extracurriculars.length > 0;
+---
+
+{
+  hasActivities && (
+    <section id="activities" class="p-8 sm:p-12 md:p-16 lg:p-24">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+        <div class="lg:col-span-4">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl xl:text-7xl font-bold text-gray-900">
+            Activities
+          </h2>
+          <div
+            class="w-[75px] h-[5px] mt-2 rounded-full"
+            style={`background-color: ${siteConfig.accentColor}`}
+          />
+        </div>
+
+        <div class="lg:col-span-8 grid gap-6 md:grid-cols-2">
+          {siteConfig.extracurriculars.map((activity) => (
+            <article class="bg-white rounded-lg shadow-sm border border-gray-100 p-4 sm:p-5 md:p-6 hover:shadow-md transition-shadow duration-300">
+              <h3 class="text-lg sm:text-xl font-semibold text-gray-900">
+                {activity.title}
+              </h3>
+              <p
+                class="mt-1 text-xs sm:text-sm"
+                style={`color: ${siteConfig.accentColor}`}
+              >
+                {activity.period}
+              </p>
+              <p class="mt-4 text-sm sm:text-base leading-relaxed text-gray-600">
+                {activity.description}
+              </p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

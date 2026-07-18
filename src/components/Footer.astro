@@ -6,6 +6,8 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
 const hasBlog = getBlogPosts().length > 0;
 const hasExperience = siteConfig.experience && siteConfig.experience.length > 0;
 const hasEducation = siteConfig.education && siteConfig.education.length > 0;
+const hasActivities =
+  siteConfig.extracurriculars && siteConfig.extracurriculars.length > 0;
 const hasTwitter = "twitter" in siteConfig.social && siteConfig.social.twitter;
 ---
 
@@ -165,6 +167,16 @@ const hasTwitter = "twitter" in siteConfig.social && siteConfig.social.twitter;
                 class="text-sm text-gray-600 hover:text-gray-800 transition-colors"
               >
                 Education
+              </a>
+            )
+          }
+          {
+            hasActivities && (
+              <a
+                href="#activities"
+                class="text-sm text-gray-600 hover:text-gray-800 transition-colors"
+              >
+                Activities
               </a>
             )
           }

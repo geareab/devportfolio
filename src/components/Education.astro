@@ -33,22 +33,25 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
                       >
                         {edu.school}
                       </p>
+                      <p class="text-sm text-gray-500">{edu.location}</p>
                     </div>
                     <span class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-0">
                       {edu.dateRange}
                     </span>
                   </div>
 
-                  <ul class="space-y-2">
-                    {(edu.achievements ?? []).map((achievement) => (
-                      <li class="flex items-start">
-                        <span class="inline-block w-1.5 h-1.5 rounded-full bg-gray-400 mt-2 mr-3 flex-shrink-0" />
-                        <span class="text-sm sm:text-base text-gray-600">
-                          {achievement}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+                  {edu.achievements.length > 0 && (
+                    <ul class="space-y-2">
+                      {edu.achievements.map((achievement) => (
+                        <li class="flex items-start">
+                          <span class="inline-block w-1.5 h-1.5 rounded-full bg-gray-400 mt-2 mr-3 flex-shrink-0" />
+                          <span class="text-sm sm:text-base text-gray-600">
+                            {achievement}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
               ))}
             </div>
